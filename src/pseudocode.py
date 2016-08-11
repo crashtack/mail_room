@@ -73,7 +73,7 @@ while runmode:
 
     if runmode = 2:
       # this if the create a thank you letter mode
-      prompt_for_input(runmode)
+      prompt_for_input(menu, prompt)
       if blank:
         list_of_donars()
         runmode = 2
