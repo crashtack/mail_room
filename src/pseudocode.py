@@ -1,6 +1,7 @@
 """ this file is pseudocode for the Mail Room Madness projet """
 
 """ Create our dictionary of donars """
+#  Donor Name, total donated, number of donations and average donation amount
 donars = ()
 
 
