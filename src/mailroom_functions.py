@@ -38,6 +38,11 @@ def initialize_donor_dict():
     return donor_dict
 
 
+def prompt_for_input(message):
+    '''"Request user input based on current runmode'''
+    return input(message)
+
+
 def list_of_donors(donor_dict):
         ''' print the list of donor names '''
         for donor in donor_dict.values():
