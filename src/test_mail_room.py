@@ -25,8 +25,17 @@ import pytest
 # ]
 
 
-def test_mail_room():
-    from mail_room import mail_room
+# def test_mailroom():
+    # from mailroom_functions import mailroom_functions
+
+
+def test_mailroom_initialize_donor_dict():
+    from mailroom_functions import initialize_donor_dict
+    assert type(initialize_donor_dict()) == dict
+
+
+def test_list_of_donors():
+    from mailroom_functions import list_of_donors
 
 
 # @pytest.mark.parametrize('m, n, result', ACK_TABLE)
