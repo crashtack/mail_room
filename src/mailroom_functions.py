@@ -53,6 +53,7 @@ def list_of_donors(donor_dict):
 
 
 def create_new_donor():
+    # TODO: refactor to pull out prompt_for_input() call
     new_donor = {}
     message = ''
     prompt = 'Enter Name of New Donor: '
