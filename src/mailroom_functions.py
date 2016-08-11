@@ -24,11 +24,20 @@ def list_of_donors(donor_dict):
             # print(donor)
             print(donor['name'])
 
-        # print the entire donar list
-        # for donar in donars:
-        #     print(donar(keyname))
+# print(list_of_donors(initialize_donor_dict()))
 
-# John_Doe = {'name': 'John Doe','total_donation': 0,'num_donations': 0,'avg_donation': 0,'last_donation': 0}
-# print(John_Doe)
-# print(John_Doe['name'])
-print(list_of_donors(initialize_donor_dict()))
+
+def create_new_donor():
+    new_donor = {}
+    message = ''
+    prompt = 'Enter Name of New Donor: '
+    name = prompt_for_input(message, prompt)
+    if type(name) == str and len(name) < 100:
+        new_donor['name'] = name
+    else:
+        print("That doesn't apear to be a valid name")
+        create_new_donar()
+
+    message = ''
+    prompt = 'Enter donation amount for {0}: '.format(name)
+    name = prompt_for_input(message, prompt)
