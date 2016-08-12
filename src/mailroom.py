@@ -3,11 +3,64 @@ import os
 import sys
 from mailroom_functions import (
     initialize_donor_dict,
-    # initialize_state_dict,
     list_of_donors,
     prompt_for_input
 )
 
+
+
+
+
+
+
+def state_0_valid_responses():
+    pass
+
+
+def state_0_action():
+    pass
+
+
+def state_1_valid_responses(a, state_dict):
+    global CURRENT_STATE
+    if a == '0':
+        CURRENT_STATE = STATE_DICT['state_0']
+        print('you entered 0')
+        print('current state: {}'.format(CURRENT_STATE['state']))
+        sys.exit()
+        return True
+    elif a == '1':
+        CURRENT_STATE = STATE_DICT['state_3']
+        print('you entered 1, next state should be 3')
+        return True
+    elif a == '2':
+        CURRENT_STATE = STATE_DICT['state_2']
+        print('you entered 2, next state should be 2')
+        return True
+    else:
+        print('That was not a valid input')
+        return False
+
+
+def state_1_action():
+    pass
+
+
+def state_2_valid_responses(a):
+    if a == 'l' or a == 'list':
+        CURRENT_STATE = STATE_DICT['state_4']
+    if a in DONORS.values():
+        pass
+
+
+def state_2_action():
+    pass
+
+    # state_dict = {
+    #     'state_0': state_0,
+    #     'state_1': state_1,
+    #     'state_2': state_2,
+    #     }
 
 def initialize_state_dict():
     state_0 = {'state': 0,
@@ -44,66 +97,29 @@ def initialize_state_dict():
                'action': state_2_action,
                'next_state': 2
                }
-    state_3 = {}
-
     state_dict = {
         'state_0': state_0,
         'state_1': state_1,
         'state_2': state_2,
-        'state_3': state_3,
     }
 
     return state_dict
 
 
-def state_0_valid_responses():
-    pass
-
-
-def state_0_action():
-    pass
-
-
-def state_1_valid_responses(a, state_dict):
-
-    if a == '0':
-        CURRENT_STATE = STATE_DICT['state_0']
-        print('you entered 0')
-        sys.exit()
-        return True
-    elif a == '1':
-        CURRENT_STATE = STATE_DICT['state_3']
-        return True
-    elif a == '2':
-        CURRENT_STATE = STATE_DICT['state_2']
-        return True
-    else:
-        print('That was not a valid input')
-        return False
-
-
-def state_1_action():
-    pass
-
-
-def state_2_valid_responses(a):
-    if a == 'l' or a == 'list':
-        CURRENT_STATE = STATE_DICT['state_4']
-    if a in DONORS.values():
-        pass
-
-
-def state_2_action():
-    pass
-
-
 DONORS = initialize_donor_dict()
+
+
 STATE_DICT = initialize_state_dict()
 CURRENT_STATE = STATE_DICT['state_1']
 
 if __name__ == '__main__':
+    # DONORS = initialize_donor_dict()
+    # STATE_DICT = initialize_state_dict()
+    # CURRENT_STATE = STATE_DICT['state_1']
+
     while True:
         # os.system('clear')
+        # print(CURRENT_STATE)
         print('current state: {}'.format(CURRENT_STATE['state']))
         response = prompt_for_input(CURRENT_STATE['prompt_message'])
 
