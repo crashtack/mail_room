@@ -38,6 +38,11 @@ def test_list_of_donors():
     from mailroom_functions import list_of_donors
 
 
+def test_state2():
+    from mailroom_functions import state_2_valid_responses
+
+
+
 # @pytest.mark.parametrize('m, n, result', ACK_TABLE)
 # def test_akermann(m, n, result):
 #     from ackermann import ackermann

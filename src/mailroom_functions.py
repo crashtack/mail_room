@@ -12,7 +12,7 @@ def initialize_state_dict():
                'Options: \n'
                '\t\t[1] Print a Report of donors and donation history\n' +
                '\t\t[2] Send a Thank You email for a new donation\n' +
-               '\t\t[3] Quit the Program\n\n',
+               '\t\t[0] Quit the Program\n\n',
                'user_response': '',
                'valid_responses': state_1_valid_responses,
                'action': state_1_action,
@@ -20,10 +20,13 @@ def initialize_state_dict():
                }
     state_2 = {'state': 2,
                'comment': 'This is the create a thank you letter state.',
-               'prompt_message': "input donor name",
+               'prompt_message':
+               '\t\t[l or list] Type "l" or list to get a list of current donors\n' +
+               '\t\t[name]      Enter a donor name to write a thank you letter\n' +
+               '\t\t[0]         Quit the Program\n\n',
                'user_response': '',
-               'valid_responses': state_1_valid_responses,
-               'action': state_1_action,
+               'valid_responses': state_2_valid_responses,
+               'action': state_2_action,
                'next_state': 2
                }
 
@@ -42,12 +45,30 @@ def initialize_state_dict():
 # print(list_of_donors(initialize_donor_dict()))
 
 
-def state_1_valid_responses():
-    pass
+def state_1_valid_responses(a):
+
+    if a == 0:
+        current_state = state_dict['state_0']
+        return True
+    elif a == 1:
+        current_state = state_dict['state_3']
+        return True
+    elif a == 2:
+        current_state = state_dict['state_2']
+        return True
+    else:
+        print('That was not a valid input')
+        return False
 
 
 def state_1_action():
     pass
+
+
+def state_2_valid_responses(a):
+    if a == 'l' or a == 'list':
+        current_state = state_dict['state_4']
+    if a in donor_dict.values():
 
 
 def initialize_donor_dict():

@@ -9,9 +9,11 @@ state_dict = initialize_state_dict()
 
 current_state = state_dict['state_1']
 
-while True:
-    response = prompt_for_input(current_state['prompt_message'])
-    os.system('clear')
-    print('response: {}\n'.format(response))
-    # current_state['valid_responses'](response)
-    pass
+if __name__ == '__main__':
+    while True:
+        os.system('clear')
+        response = prompt_for_input(current_state['prompt_message'])
+
+        print('response: {}\n'.format(response))
+        if current_state['valid_responses'](response):
+            current_state['action']()
