@@ -84,13 +84,8 @@ def state_1_valid_responses(a):
         print('Good By')
         sys.exit()
     elif a == '1':
-        print("Am i here?")
         create_report()
-        STATE_DICT['state_3']['prompt_message'] = create_report()
         CURRENT_STATE = STATE_DICT['state_3']
-        #os.system('clear')
-        # print('you entered 1, next state should be 3')
-        # print('Calling create_report() to Creating a Report')
         return True
     elif a == '2':
         CURRENT_STATE = STATE_DICT['state_2']
@@ -108,11 +103,12 @@ def state_1_action():
 
 def state_2_valid_responses(a):
     global CURRENT_STATE
+    global DONORS
     if a == 'l' or a == 'list':
         CURRENT_STATE = STATE_DICT['state_2']
         list_of_donors(DONORS)
-    elif a in DONORS.values():
-        pass
+    elif DONORS[a.replace(' ', '_')]:
+        print('We Found A Donor that matches your inpput')
     elif a == '0':
         # CURRENT_STATE = STATE_DICT['state_0']
         os.system('clear')
@@ -128,6 +124,7 @@ def state_3_valid_responses(a):
     global CURRENT_STATE
     if a == '1':
         CURRENT_STATE = STATE_DICT['state_1']
+        os.system('clear')
     elif a == '0':
         os.system('clear')
         print('Good By')
@@ -149,6 +146,7 @@ def state_2_action():
 
 def create_report():
     global DONORS
+    os.system('clear')
     print('{:<20}  {:<20}  {:<20}  {:<20}  {:<20}'
           .format('Name', 'Total Donation', '# of Donations',
                   'Average Donation', 'Last Donation'))
@@ -165,11 +163,21 @@ def create_report():
 
 def list_of_donors(donor_dict):
         ''' print the list of donor names '''
+        os.system('clear')
         print('\nCurrent Donors:')
         for donor in donor_dict.values():
             # print(donor)
             print('\t{}'.format(donor['name']))
         print()
+
+
+def update_donor(name):
+    global DONORS
+    name_ = name.replace(' ', '_')
+    print(name_)
+    # for donor['name'][name] in DONORS;
+    #     print(DONORS.)
+    # DONORS[name]
 
 
 DONORS = initialize_donor_dict()
