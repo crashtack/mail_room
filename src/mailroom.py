@@ -3,8 +3,9 @@
 from mailroom_functions import initialize_donor_dict, \
     initialize_state_dict, list_of_donors, prompt_for_input
 
-initialize_donor_dict()
-initialize_state_dict()
+
+donar_dict = initialize_donor_dict()
+state_dict = initialize_state_dict()
 
 current_state = state_1
 

@@ -4,14 +4,29 @@
 
 def initialize_state_dict():
     state_0         # this is the quit state
+
     state_1 = {'state': 1,
+               'comment': 'This is the initial entry state.',
+               'prompt_message':
+               'Welcome the the Donor Message Creation Center\n' +
+               'Options: \n'
+               '\t\t[1] Print a Report of donors and donation history\n' +
+               '\t\t[2] Send a Thank You email for a new donation\n' +
+               '\t\t[3] Quit the Program',
+               'user_response': '',
+               'valid_responses': state_1_valid_responses,
+               'action': state_1_action,
+               'next_state': 2
+               }
+    state_2 = {'state': 2,
+               'comment': 'This is the create a thank you letter state.',
                'prompt_message': "input donor name",
                'user_response': '',
                'valid_responses': state_1_valid_responses,
                'action': state_1_action,
                'next_state': 2
-               }        # this is the initial program entry state
-    state_2
+               }
+
 
 
 def initialize_donor_dict():
