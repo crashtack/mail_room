@@ -3,7 +3,7 @@
 
 
 def initialize_state_dict():
-    state_0         # this is the quit state
+    state_0 = {}   # this is the quit state
 
     state_1 = {'state': 1,
                'comment': 'This is the initial entry state.',
@@ -12,7 +12,7 @@ def initialize_state_dict():
                'Options: \n'
                '\t\t[1] Print a Report of donors and donation history\n' +
                '\t\t[2] Send a Thank You email for a new donation\n' +
-               '\t\t[3] Quit the Program',
+               '\t\t[3] Quit the Program\n\n',
                'user_response': '',
                'valid_responses': state_1_valid_responses,
                'action': state_1_action,
@@ -27,6 +27,27 @@ def initialize_state_dict():
                'next_state': 2
                }
 
+    state_dict = {
+        'state_0': state_0,
+        'state_1': state_1,
+        'state_2': state_2,
+    }
+
+    return state_dict
+
+# John_Doe = {'name': 'John Doe','total_donation': 0,'num_donations': 0,'avg_donation': 0,'last_donation': 0}
+# print(John_Doe)
+# print(John_Doe['name'])
+# print(initialize_state_dict()['state_1'])
+# print(list_of_donors(initialize_donor_dict()))
+
+
+def state_1_valid_responses():
+    pass
+
+
+def state_1_action():
+    pass
 
 
 def initialize_donor_dict():
@@ -82,3 +103,6 @@ def create_new_donor():
     message = ''
     prompt = 'Enter donation amount for {0}: '.format(name)
     name = prompt_for_input(message, prompt)
+
+
+# print(initialize_state_dict()['state_1']['prompt_message'])
