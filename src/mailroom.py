@@ -8,67 +8,6 @@ from mailroom_functions import (
 )
 
 
-def state_0_valid_responses():
-    pass
-
-
-def state_0_action():
-    pass
-
-
-def state_1_valid_responses(a):
-    global CURRENT_STATE
-    if a == '0':
-        os.system('clear')
-        print('Good By')
-        sys.exit()
-    elif a == '1':
-        CURRENT_STATE = STATE_DICT['state_3']
-        os.system('clear')
-        print('you entered 1, next state should be 3')
-        return True
-    elif a == '2':
-        CURRENT_STATE = STATE_DICT['state_2']
-        os.system('clear')
-        # print('you entered 2, next state should be 2')
-        return True
-    else:
-        print('That was not a valid input')
-        return False
-
-
-def state_1_action():
-    pass
-
-
-def state_2_valid_responses(a):
-    global CURRENT_STATE
-    if a == 'l' or a == 'list':
-        CURRENT_STATE = STATE_DICT['state_2']
-        list_of_donors(DONORS)
-    elif a in DONORS.values():
-        pass
-    elif a == '0':
-        # CURRENT_STATE = STATE_DICT['state_0']
-        os.system('clear')
-        print('Good By')
-        # print('current state: {}'.format(CURRENT_STATE['state']))
-        sys.exit()
-    else:
-            print('That was not a valid input')
-            return False
-
-
-
-def state_2_action():
-    pass
-
-    # state_dict = {
-    #     'state_0': state_0,
-    #     'state_1': state_1,
-    #     'state_2': state_2,
-    #     }
-
 def initialize_state_dict():
     state_0 = {'state': 0,
                'comment': 'this is the quite state.',
@@ -109,12 +48,12 @@ def initialize_state_dict():
                }
     state_3 = {'state': 3,
                'comment': 'This is Print a Report of donor information.',
-               'prompt_message':
-               '\t\t[l or list] Type "l" or list to get a list of current donors\n' +
-               '\t\t[name]      Enter a donor name to write a thank you letter\n' +
-               '\t\t[0]         Quit the Program\n\n',
+               'prompt_message': '',
+            #    '\nOptions: \n' +
+            #    '\t\t[1] Return to main menu\n' +
+            #    '\t\t[0] Quit the Program\n\n',
                'user_response': '',
-               'valid_responses': state_2_valid_responses,
+               'valid_responses': state_3_valid_responses,
                'action': state_2_action,
                'next_state': 4
                }
@@ -127,6 +66,101 @@ def initialize_state_dict():
     }
 
     return state_dict
+
+
+def state_0_valid_responses():
+    pass
+
+
+def state_0_action():
+    pass
+
+
+def state_1_valid_responses(a):
+    global CURRENT_STATE
+    global STATE_DICT
+    if a == '0':
+        os.system('clear')
+        print('Good By')
+        sys.exit()
+    elif a == '1':
+        print("Am i here?")
+        create_report()
+        STATE_DICT['state_3']['prompt_message'] = create_report()
+        CURRENT_STATE = STATE_DICT['state_3']
+        #os.system('clear')
+        # print('you entered 1, next state should be 3')
+        # print('Calling create_report() to Creating a Report')
+        return True
+    elif a == '2':
+        CURRENT_STATE = STATE_DICT['state_2']
+        os.system('clear')
+        # print('you entered 2, next state should be 2')
+        return True
+    else:
+        print('That was not a valid input')
+        return False
+
+
+def state_1_action():
+    pass
+
+
+def state_2_valid_responses(a):
+    global CURRENT_STATE
+    if a == 'l' or a == 'list':
+        CURRENT_STATE = STATE_DICT['state_2']
+        list_of_donors(DONORS)
+    elif a in DONORS.values():
+        pass
+    elif a == '0':
+        # CURRENT_STATE = STATE_DICT['state_0']
+        os.system('clear')
+        print('Good By')
+        # print('current state: {}'.format(CURRENT_STATE['state']))
+        sys.exit()
+    else:
+            print('That was not a valid input')
+            return False
+
+
+def state_3_valid_responses(a):
+    global CURRENT_STATE
+    if a == '1':
+        CURRENT_STATE = STATE_DICT['state_1']
+    elif a == '0':
+        os.system('clear')
+        print('Good By')
+        sys.exit()
+    else:
+            print('That was not a valid input')
+            return False
+
+
+def state_2_action():
+    pass
+
+    # state_dict = {
+    #     'state_0': state_0,
+    #     'state_1': state_1,
+    #     'state_2': state_2,
+    #     }
+
+
+def create_report():
+    global DONORS
+    print('{:<20}  {:<20}  {:<20}  {:<20}  {:<20}'
+          .format('Name', 'Total Donation', '# of Donations',
+                  'Average Donation', 'Last Donation'))
+    for donor in DONORS.values():
+        # print(donor)
+        print('{:<20}  {:<20}  {:<20}  {:<20}  {:<20}'
+              .format(donor['name'], donor['total_donation'],
+                      donor['num_donations'], donor['avg_donation'],
+                      donor['last_donation']))
+
+    print('\nOptions: \n\t\t[1] Return to main menu\n' +
+          '\t\t[0] Quit the Program\n\n')
 
 
 def list_of_donors(donor_dict):

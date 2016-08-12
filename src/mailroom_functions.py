@@ -81,8 +81,11 @@ def initialize_donor_dict():
     '''function to create the dictionary of dictionary to
        hold donor information
     '''
-    John_Doe = {'name': 'John Doe', 'total_donation': 0, 'num_donations': 0,
-                'avg_donation': 0, 'last_donation': 0}
+    John_Doe = {'name': 'John Doe',
+                'total_donation': 0,
+                'num_donations': 0,
+                'avg_donation': 0,
+                'last_donation': 0}
     Neil_Armstrong = {'name': 'Neil Armstrong', 'total_donation': 23000000,
                       'num_donations': 4, 'avg_donation': 5750000,
                       'last_donation': 10000000}
@@ -106,11 +109,11 @@ def prompt_for_input(message):
     return input(message)
 
 
-def list_of_donors(donor_dict):
-        ''' print the list of donor names '''
-        for donor in donor_dict.values():
-            # print(donor)
-            print(donor['name'])
+# def list_of_donors(donor_dict):
+#         ''' print the list of donor names '''
+#         for donor in donor_dict.values():
+#             # print(donor)
+#             print(donor['name'])
 
 # print(list_of_donors(initialize_donor_dict()))
 
