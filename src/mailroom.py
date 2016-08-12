@@ -57,6 +57,16 @@ def initialize_state_dict():
                'action': state_2_action,
                'next_state': 4
                }
+    state_4 = {'state': 4,
+               'comment': 'This is Print a Report of donor information.',
+               'prompt_message': '',
+            #    '\nOptions: \n' +
+            #    '\t\t[1] Return to main menu\n' +
+            #    '\t\t[0] Quit the Program\n\n',
+               'user_response': '',
+               'valid_responses': state_3_valid_responses,
+               'action': state_2_action,
+               }
 
     state_dict = {
         'state_0': state_0,
@@ -107,8 +117,11 @@ def state_2_valid_responses(a):
     if a == 'l' or a == 'list':
         CURRENT_STATE = STATE_DICT['state_2']
         list_of_donors(DONORS)
-    elif DONORS[a.replace(' ', '_')]:
+    elif DONORS[a]:
+        update_donor(a)
         print('We Found A Donor that matches your inpput')
+        CURRENT_STATE = STATE_DICT['state_4']
+        os.system('clear')
     elif a == '0':
         # CURRENT_STATE = STATE_DICT['state_0']
         os.system('clear')
