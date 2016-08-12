@@ -59,10 +59,7 @@ def initialize_state_dict():
                }
     state_4 = {'state': 4,
                'comment': 'This is Print a Report of donor information.',
-               'prompt_message': '',
-            #    '\nOptions: \n' +
-            #    '\t\t[1] Return to main menu\n' +
-            #    '\t\t[0] Quit the Program\n\n',
+               'prompt_message': 'Enter New Donation Amount: ',
                'user_response': '',
                'valid_responses': state_3_valid_responses,
                'action': state_2_action,
@@ -73,6 +70,7 @@ def initialize_state_dict():
         'state_1': state_1,
         'state_2': state_2,
         'state_3': state_3,
+        'state_4': state_4,
     }
 
     return state_dict
@@ -117,11 +115,6 @@ def state_2_valid_responses(a):
     if a == 'l' or a == 'list':
         CURRENT_STATE = STATE_DICT['state_2']
         list_of_donors(DONORS)
-    elif DONORS[a]:
-        update_donor(a)
-        print('We Found A Donor that matches your inpput')
-        CURRENT_STATE = STATE_DICT['state_4']
-        os.system('clear')
     elif a == '0':
         # CURRENT_STATE = STATE_DICT['state_0']
         os.system('clear')
@@ -129,8 +122,17 @@ def state_2_valid_responses(a):
         # print('current state: {}'.format(CURRENT_STATE['state']))
         sys.exit()
     else:
-            print('That was not a valid input')
-            return False
+        try:
+            DONORS[a]
+            print('We Found A Donor that matches your inpput')
+            update_donor(a)
+            CURRENT_STATE = STATE_DICT['state_4']
+            # os.system('clear')
+        except KeyError:
+            print()
+            print('"{}" Is not a valid donor name or command.'.format(a))
+            print()
+            return
 
 
 def state_3_valid_responses(a):
@@ -145,6 +147,21 @@ def state_3_valid_responses(a):
     else:
             print('That was not a valid input')
             return False
+
+
+def state_4_valid_responsee(a):
+    global CURRENT_STATE
+    if a.isint:
+        CURRENT_STATE = STATE_DICT['state_1']
+        os.system('clear')
+    elif a == '0':
+        os.system('clear')
+        print('Good By')
+        sys.exit()
+    else:
+            print('That was not a valid input')
+            return False
+
 
 
 def state_2_action():
@@ -180,7 +197,7 @@ def list_of_donors(donor_dict):
         print('\nCurrent Donors:')
         for donor in donor_dict.values():
             # print(donor)
-            print('\t{}'.format(donor['name']))
+            print('\t\t{}'.format(donor['name']))
         print()
 
 
