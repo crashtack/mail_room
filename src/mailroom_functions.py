@@ -2,41 +2,41 @@
 ''' main mailroom script file '''
 
 
-def initialize_state_dict():
-    state_0 = {}   # this is the quit state
-
-    state_1 = {'state': 1,
-               'comment': 'This is the initial entry state.',
-               'prompt_message':
-               'Welcome the the Donor Message Creation Center\n' +
-               'Options: \n'
-               '\t\t[1] Print a Report of donors and donation history\n' +
-               '\t\t[2] Send a Thank You email for a new donation\n' +
-               '\t\t[0] Quit the Program\n\n',
-               'user_response': '',
-               'valid_responses': state_1_valid_responses,
-               'action': state_1_action,
-               'next_state': 2
-               }
-    state_2 = {'state': 2,
-               'comment': 'This is the create a thank you letter state.',
-               'prompt_message':
-               '\t\t[l or list] Type "l" or list to get a list of current donors\n' +
-               '\t\t[name]      Enter a donor name to write a thank you letter\n' +
-               '\t\t[0]         Quit the Program\n\n',
-               'user_response': '',
-               'valid_responses': state_2_valid_responses,
-               'action': state_2_action,
-               'next_state': 2
-               }
-
-    state_dict = {
-        'state_0': state_0,
-        'state_1': state_1,
-        'state_2': state_2,
-    }
-
-    return state_dict
+# def initialize_state_dict():
+#     state_0 = {}   # this is the quit state
+#
+#     state_1 = {'state': 1,
+#                'comment': 'This is the initial entry state.',
+#                'prompt_message':
+#                'Welcome the the Donor Message Creation Center\n' +
+#                'Options: \n'
+#                '\t\t[1] Print a Report of donors and donation history\n' +
+#                '\t\t[2] Send a Thank You email for a new donation\n' +
+#                '\t\t[0] Quit the Program\n\n',
+#                'user_response': '',
+#                'valid_responses': state_1_valid_responses,
+#                'action': state_1_action,
+#                'next_state': 2
+#                }
+#     state_2 = {'state': 2,
+#                'comment': 'This is the create a thank you letter state.',
+#                'prompt_message':
+#                '\t\t[l or list] Type "l" or list to get a list of current donors\n' +
+#                '\t\t[name]      Enter a donor name to write a thank you letter\n' +
+#                '\t\t[0]         Quit the Program\n\n',
+#                'user_response': '',
+#                'valid_responses': state_2_valid_responses,
+#                'action': state_2_action,
+#                'next_state': 2
+#                }
+#
+#     state_dict = {
+#         'state_0': state_0,
+#         'state_1': state_1,
+#         'state_2': state_2,
+#     }
+#
+#     return state_dict
 
 # John_Doe = {'name': 'John Doe','total_donation': 0,'num_donations': 0,'avg_donation': 0,'last_donation': 0}
 # print(John_Doe)
@@ -45,20 +45,21 @@ def initialize_state_dict():
 # print(list_of_donors(initialize_donor_dict()))
 
 
-def state_1_valid_responses(a):
-
-    if a == 0:
-        current_state = state_dict['state_0']
-        return True
-    elif a == 1:
-        current_state = state_dict['state_3']
-        return True
-    elif a == 2:
-        current_state = state_dict['state_2']
-        return True
-    else:
-        print('That was not a valid input')
-        return False
+# def state_1_valid_responses(a):
+#
+#     if a == '0':
+#         current_state = state_dict['state_0']
+#         print('you entered 0')
+#         return True
+#     elif a == '1':
+#         current_state = state_dict['state_3']
+#         return True
+#     elif a == '2':
+#         current_state = state_dict['state_2']
+#         return True
+#     else:
+#         print('That was not a valid input')
+#         return False
 
 
 def state_1_action():
@@ -69,6 +70,11 @@ def state_2_valid_responses(a):
     if a == 'l' or a == 'list':
         current_state = state_dict['state_4']
     if a in donor_dict.values():
+        pass
+
+
+def state_2_action():
+    pass
 
 
 def initialize_donor_dict():
@@ -119,7 +125,7 @@ def create_new_donor():
         new_donor['name'] = name
     else:
         print("That doesn't apear to be a valid name")
-        create_new_donar()
+        create_new_donor()
 
     message = ''
     prompt = 'Enter donation amount for {0}: '.format(name)
