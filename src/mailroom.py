@@ -62,7 +62,7 @@ def initialize_state_dict():
                'prompt_message': 'Enter New Donation Amount or' +
                ' 0 to return to previous menu: ',
                'user_response': '',
-               'valid_responses': state_3_valid_responses,
+               'valid_responses': state_4_valid_responses,
                'action': state_2_action,
                }
 
@@ -150,19 +150,20 @@ def state_3_valid_responses(a):
             return False
 
 
-def state_4_valid_responsee(a):
+def state_4_valid_responses(a):
     ''' need to test for properly formated $ amout iiiiii.ii '''
     global CURRENT_STATE
-    if a.isint:
-        CURRENT_STATE = STATE_DICT['state_1']
+    amount = int(a)
+    if a == '0':
         os.system('clear')
-    elif a == '0':
-        os.system('clear')
-        print('Good By')
-        sys.exit()
+        print('Good Bye')
+        sys.exit(1)
     else:
-            print('That was not a valid input')
-            return False
+        print('amount = {}'.format(amount))
+        return amount
+    # else:
+            # print('That was not a valid input')
+            # return False
 
 
 
