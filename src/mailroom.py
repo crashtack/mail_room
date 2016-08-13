@@ -59,7 +59,8 @@ def initialize_state_dict():
                }
     state_4 = {'state': 4,
                'comment': 'This is Print a Report of donor information.',
-               'prompt_message': 'Enter New Donation Amount: ',
+               'prompt_message': 'Enter New Donation Amount or' +
+               ' 0 to return to previous menu: ',
                'user_response': '',
                'valid_responses': state_3_valid_responses,
                'action': state_2_action,
@@ -150,6 +151,7 @@ def state_3_valid_responses(a):
 
 
 def state_4_valid_responsee(a):
+    ''' need to test for properly formated $ amout iiiiii.ii '''
     global CURRENT_STATE
     if a.isint:
         CURRENT_STATE = STATE_DICT['state_1']
