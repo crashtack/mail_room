@@ -112,15 +112,13 @@ def state_1_action():
 
 def state_2_valid_responses(a):
     global CURRENT_STATE
-    global DONORS
+    global CURRENT_DONOR
     if a == 'l' or a == 'list':
         CURRENT_STATE = STATE_DICT['state_2']
         list_of_donors(DONORS)
     elif a == '0':
-        # CURRENT_STATE = STATE_DICT['state_0']
         os.system('clear')
         print('Good By')
-        # print('current state: {}'.format(CURRENT_STATE['state']))
         sys.exit()
     else:
         try:
@@ -153,11 +151,11 @@ def state_3_valid_responses(a):
 def state_4_valid_responses(a):
     ''' need to test for properly formated $ amout iiiiii.ii '''
     global CURRENT_STATE
+    global CURRENT_DONOR
     amount = int(a)
     if a == '0':
+        CURRENT_STATE = STATE_DICT['state_2']
         os.system('clear')
-        print('Good Bye')
-        sys.exit(1)
     else:
         print('amount = {}'.format(amount))
         return amount
@@ -166,15 +164,8 @@ def state_4_valid_responses(a):
             # return False
 
 
-
 def state_2_action():
     pass
-
-    # state_dict = {
-    #     'state_0': state_0,
-    #     'state_1': state_1,
-    #     'state_2': state_2,
-    #     }
 
 
 def create_report():
@@ -205,15 +196,14 @@ def list_of_donors(donor_dict):
 
 
 def update_donor(name):
-    global DONORS
-    name_ = name.replace(' ', '_')
-    print(name_)
-    # for donor['name'][name] in DONORS;
-    #     print(DONORS.)
-    # DONORS[name]
+    global CURRENT_DONOR
+    CURRENT_DONOR = DONORS[name]
+    print(CURRENT_DONOR)
+    return CURRENT_DONOR
 
 
 DONORS = initialize_donor_dict()
+CURRENT_DONOR = {}
 STATE_DICT = initialize_state_dict()
 CURRENT_STATE = STATE_DICT['state_1']
 

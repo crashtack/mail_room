@@ -1,34 +1,11 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-# ACK_TABLE = [
-#     (0, 0, 1),
-#     (0, 1, 2),
-#     (0, 2, 3),
-#     (0, 3, 4),
-#     (0, 4, 5),
-#     (1, 0, 2),
-#     (1, 1, 3),
-#     (1, 2, 4),
-#     (1, 3, 5),
-#     (1, 4, 6),
-#     (2, 0, 3),
-#     (2, 1, 5),
-#     (2, 2, 7),
-#     (2, 3, 9),
-#     (2, 4, 11),
-#     (3, 0, 5),
-#     (3, 1, 13),
-#     (3, 2, 29),
-#     (3, 3, 61),
-#     (3, 4, 125)
-# ]
-
 
 STATE4_TABLE = [
     (10, 10),
     (11, 11),
-    ('0', SystemExit),
+    # ('0', SystemExit),
 ]
 # def test_mailroom():
     # from mailroom_functions import mailroom_functions
@@ -46,15 +23,24 @@ def test_list_of_donors():
 def test_state2():
     from mailroom_functions import state_2_valid_responses
 
+
 def test_state4_1():
     from mailroom import state_4_valid_responses
     assert state_4_valid_responses('10') == 10
+
+
+def test_update_donor():
+    from mailroom import update_donor
+    from mailroom import DONORS
+    assert update_donor('John Doe') == DONORS['John Doe']
 
 
 @pytest.mark.parametrize('a, result', STATE4_TABLE)
 def test_state4_2(a, result):
     from mailroom import state_4_valid_responses
     assert state_4_valid_responses(a) == result
+
+
 
 
 
