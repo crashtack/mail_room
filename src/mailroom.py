@@ -152,12 +152,17 @@ def state_4_valid_responses(a):
     ''' need to test for properly formated $ amout iiiiii.ii '''
     global CURRENT_STATE
     global CURRENT_DONOR
-    amount = int(a)
+    try:
+        amount = float(a)
+    except ValueError:
+        print('{} is not a valid amount'.format(a))
+        return False
     if a == '0':
         CURRENT_STATE = STATE_DICT['state_2']
         os.system('clear')
     else:
-        print('amount = {}'.format(amount))
+        print('amount = {:.2f}'.format(amount))
+
         return amount
     # else:
             # print('That was not a valid input')
