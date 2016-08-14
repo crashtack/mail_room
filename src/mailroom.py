@@ -13,16 +13,6 @@ from mailroom_functions import (
 
 
 def initialize_state_dict():
-    state_0 = {'state': 0,
-               'comment': 'this is the quite state.',
-               'prompt_message':
-               'Good By\n',
-               'user_response': '',
-               'valid_responses': state_0_valid_responses,
-               'action': state_0_action,
-               'next_state': 0
-               }   # this is the quit state
-
     state_1 = {'state': 1,
                'comment': 'This is the initial entry state.',
                'prompt_message':
@@ -42,7 +32,7 @@ def initialize_state_dict():
                '\t\t[name]      Enter a donor name to write a thank you letter\n' +
                '\t\t[0]         Return to Main Menu\n\n' +
                'Enter Command or donor name: ',
-               'user_response': '',
+               'user_response': 'default_response',
                'valid_responses': state_2_valid_responses,
                }
     state_3 = {'state': 3,
@@ -55,7 +45,7 @@ def initialize_state_dict():
                'comment': 'Enter New Donation Amount',
                'prompt_message': 'Enter New Donation Amount or' +
                ' 0 to return to previous menu: ',
-               'user_response': '',
+               'donation_amount': 0.00,
                'valid_responses': state_4_valid_responses,
                }
     state_5 = {'state': 5,
@@ -70,14 +60,14 @@ def initialize_state_dict():
                'new_donor_name': ''
                }
     state_7 = {'state': 7,
-               'comment': 'Ask to validate creating a user',
+               'comment': 'Ask to validate donation amount',
                'prompt_message': ' (y or n): ',
-               'valid_responses': state_6_valid_responses,
+               'valid_responses': state_7_valid_responses,
                'new_donor_name': ''
                }
 
     state_dict = {
-        'state_0': state_0,
+        # 'state_0': state_0,
         'state_1': state_1,
         'state_2': state_2,
         'state_3': state_3,
@@ -88,14 +78,6 @@ def initialize_state_dict():
     }
 
     return state_dict
-
-
-def state_0_valid_responses():
-    pass
-
-
-def state_0_action():
-    pass
 
 
 def state_1_valid_responses(a):
@@ -134,6 +116,8 @@ def state_2_valid_responses(a):
             user_report()
             CURRENT_STATE = STATE_DICT['state_4']
         except KeyError:
+            STATE_DICT['state_2']['user_response'] = a
+            # print('new donor: {}'.format(STATE_DICT['state_2']['user_response']))
             print('{} is not a current donor.'.format(a))
             print('Create a new donor {}'.format(a), end='')
             STATE_DICT['state_6']['new_donor_name'] = a
@@ -165,10 +149,9 @@ def state_4_valid_responses(a):
         return
     try:
         amount = float(a)
-        update_donor(amount)
-        user_report()
-        CURRENT_STATE = STATE_DICT['state_5']
-        # print('amount = {:.2f}'.format(amount))
+        print('Is ${:,.2f} correct?'.format(amount), end='')
+        STATE_DICT['state_4']['donation_amount'] = amount
+        CURRENT_STATE = STATE_DICT['state_7']
         return amount
     except ValueError:
         print('{} is not a valid amount'.format(a))
@@ -205,8 +188,25 @@ def state_6_valid_responses(a):
     return
 
 
-# def state_2_action():
-#     pass
+def state_7_valid_responses(a):
+    global CURRENT_STATE
+    if a == 'y':
+        update_donor(STATE_DICT['state_4']['donation_amount'])
+        user_report()
+        CURRENT_STATE = STATE_DICT['state_5']
+        # print('amount = {:.2f}'.format(amount))
+        # return amount
+    elif a == 'n':
+        os.system('clear')
+        CURRENT_STATE = STATE_DICT['state_4']
+    elif a == '0':
+        os.system('clear')
+        CURRENT_STATE = STATE_DICT['state_2']
+    else:
+        print('That was not a valid input')
+        CURRENT_STATE = STATE_DICT['state_7']
+        return False
+    return
 
 
 def create_report():
@@ -217,7 +217,7 @@ def create_report():
                   'Average Donation', 'Last Donation'))
     for donor in DONORS.values():
         # print(donor)
-        print('{:<20}  {:<20}  {:<20}  {:<20}  {:<20}'
+        print('{:<20}  ${:<20,.2f}  {:<20}  ${:<20,.2f}  ${:<20,.2f}'
               .format(donor['name'], donor['total_donation'],
                       donor['num_donations'], donor['avg_donation'],
                       donor['last_donation']))
