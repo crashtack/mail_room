@@ -7,17 +7,49 @@
 import os
 import sys
 from collections import OrderedDict
-from mailroom_functions import (
-    initialize_donor_dict,
-    # prompt_for_input,
-)
+
+
+def initialize_donor_dict():
+    '''function to create the dictionary of dictionary to
+       hold donor information
+    '''
+    John_Doe = {'name': 'John Doe',
+                'total_donation': 0,
+                'num_donations': 0,
+                'avg_donation': 0,
+                'last_donation': 0}
+
+    Neil_Armstrong = {'name': 'Neil Armstrong',
+                      'total_donation': 23000000,
+                      'num_donations': 4,
+                      'avg_donation': 5750000,
+                      'last_donation': 10000000}
+
+    Sara_Smith = {'name': 'Sara Smith',
+                  'total_donation': 100,
+                  'num_donations': 2,
+                  'avg_donation': 50,
+                  'last_donation': 35}
+
+    Ralf_the_Dog = {'name': 'Ralf the Dog',
+                    'total_donation': 1000,
+                    'num_donations': 1,
+                    'avg_donation': 1000,
+                    'last_donation': 1000}
+
+    donor_dict = {'John Doe': John_Doe,
+                  'Neil Armstrong': Neil_Armstrong,
+                  'Sara Smith': Sara_Smith,
+                  'Ralf the Dog': Ralf_the_Dog,
+                  }
+
+    return donor_dict
 
 
 def initialize_state_dict():
     state_1 = {'state': 1,
                'comment': 'This is the initial entry state.',
                'prompt_message':
-               # 'Welcome the the Donor Message Creation Center\n\n' +
                'Options:' +
                '\t[1] Create Report\n' +
                '\t\t[2] Send a Thank\n' +
@@ -68,7 +100,6 @@ def initialize_state_dict():
                }
 
     state_dict = {
-        # 'state_0': state_0,
         'state_1': state_1,
         'state_2': state_2,
         'state_3': state_3,
@@ -95,7 +126,6 @@ def state_1_valid_responses(a):
     elif a == '2':
         CURRENT_STATE = STATE_DICT['state_2']
         os.system('clear')
-        # print('you entered 2, next state should be 2')
         return True
     else:
         print('That was not a valid input')
@@ -103,6 +133,7 @@ def state_1_valid_responses(a):
 
 
 def state_2_valid_responses(a):
+    ''' TODO: add check for new donor name greater then 20 characters '''
     global CURRENT_STATE
     global CURRENT_DONOR
     if a == 'l' or a == 'list':
@@ -118,7 +149,6 @@ def state_2_valid_responses(a):
             CURRENT_STATE = STATE_DICT['state_4']
         except KeyError:
             STATE_DICT['state_2']['user_response'] = a
-            # print('new donor: {}'.format(STATE_DICT['state_2']['user_response']))
             print('{} is not a current donor.'.format(a))
             print('Create a new donor {}'.format(a), end='')
             STATE_DICT['state_6']['new_donor_name'] = a
@@ -136,8 +166,8 @@ def state_3_valid_responses(a):
         print('Good By')
         sys.exit()
     else:
-            print('That was not a valid input')
-            return False
+        print('That was not a valid input')
+        return False
 
 
 def state_4_valid_responses(a):
@@ -168,8 +198,8 @@ def state_5_valid_responses(a):
         os.system('clear')
         CURRENT_STATE = STATE_DICT['state_2']
     else:
-            print('That was not a valid input')
-            return False
+        print('That was not a valid input')
+        return False
     return
 
 
@@ -195,8 +225,6 @@ def state_7_valid_responses(a):
         update_donor(STATE_DICT['state_4']['donation_amount'])
         user_report()
         CURRENT_STATE = STATE_DICT['state_5']
-        # print('amount = {:.2f}'.format(amount))
-        # return amount
     elif a == 'n':
         os.system('clear')
         CURRENT_STATE = STATE_DICT['state_4']
@@ -212,20 +240,18 @@ def state_7_valid_responses(a):
 
 def create_report():
     global DONORS
-    ord_donors = OrderedDict(sorted(DONORS.items(), key=lambda t: t[1]['total_donation']))
+    o = OrderedDict(sorted(DONORS.items(),
+                    key=lambda t: t[1]['total_donation']))
     os.system('clear')
-    print('{:<20}  {:<20}  {:<20}  {:<20}  {:<20}\n'
-          .format('Name', 'Total Donation', '# of Donations',
-                  'Average Donation', 'Last Donation'))
-    for donor in ord_donors.values():
-        # print(donor)
-        print('{:<20}  ${:<20,.2f}  {:<20}  ${:<20,.2f}  ${:<20,.2f}'
+    print('{:<20} {:<15}  {:<7} {:<15}  {:<15}\n'
+          .format('Name', 'Total', 'Number',
+                  'Average', 'Last'))
+    for donor in o.values():
+        print('{:<20} ${:<15,.2f} {:<7} ${:<15,.2f} ${:<15,.2f}'
               .format(donor['name'], donor['total_donation'],
                       donor['num_donations'], donor['avg_donation'],
                       donor['last_donation']))
     print()
-    # print('\nOptions: \n\t\t[1] Return to main menu\n' +
-    #       '\t\t[0] Quit the Program\n\n')
 
 
 def user_report():
@@ -245,7 +271,6 @@ def list_of_donors(donor_dict):
         os.system('clear')
         print('\nCurrent Donors:')
         for donor in donor_dict.values():
-            # print(donor)
             print('\t\t{}'.format(donor['name']))
         print()
 
@@ -265,7 +290,6 @@ def create_donor():
 
 
 def update_donor(amount):
-    # os.systme('clear')
     global CURRENT_DONOR
     print('updating: {}'.format(CURRENT_DONOR))
     CURRENT_DONOR['last_donation'] = amount
@@ -282,8 +306,8 @@ def print_letter():
     ----------------------------------------------------------------------------
 
     Dear {},
-    Thank you for your recent donation of ${:,.2f}. Without donors like you
-    the Save the Womp Rats Foundation would not exist.
+    Thank you for your recent donation of ${:,.2f}. Without donors like
+    you the Save the Womp Rats Foundation would not exist.
 
     Sincerly Yours,
     Jane Doe
@@ -311,11 +335,5 @@ if __name__ == '__main__':
     print('Welcome the the Donor Message Creation Center\n\n')
 
     while True:
-        # os.system('clear')
-        # print(CURRENT_STATE)
-        # print('current state: {}'.format(CURRENT_STATE['state']))
         response = prompt_for_input(CURRENT_STATE['prompt_message'])
-
-        # print('response: {}\n'.format(response))
         CURRENT_STATE['valid_responses'](response)
-        # current_state['action']()
