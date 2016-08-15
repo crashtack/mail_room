@@ -9,7 +9,7 @@ import sys
 from collections import OrderedDict
 from mailroom_functions import (
     initialize_donor_dict,
-    prompt_for_input,
+    # prompt_for_input,
 )
 
 
@@ -293,6 +293,11 @@ def print_letter():
     """
           .format(CURRENT_DONOR['name'],
                   CURRENT_DONOR['last_donation']))
+
+
+def prompt_for_input(message):
+    '''"Request user input based on current runmode'''
+    return input(message)
 
 
 DONORS = initialize_donor_dict()
