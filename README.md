@@ -3,5 +3,6 @@
 
 This is an app for generating a thank you letter for donations. 
 
-to run
+to run:
+
 $ python src/mailroom.py
