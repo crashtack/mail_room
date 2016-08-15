@@ -6,6 +6,7 @@
 """
 import os
 import sys
+from collections import OrderedDict
 from mailroom_functions import (
     initialize_donor_dict,
     prompt_for_input,
@@ -18,8 +19,8 @@ def initialize_state_dict():
                'prompt_message':
                'Welcome the the Donor Message Creation Center\n\n' +
                'Options:' +
-               '\t[1] Print a Report of donors and donation history\n' +
-               '\t\t[2] Send a Thank You email for a new donation\n' +
+               '\t[1] Create Report\n' +
+               '\t\t[2] Send a Thank\n' +
                '\t\t[0] Quit the Program\n\n' +
                'Enter Command: ',
                'valid_responses': state_1_valid_responses,
@@ -211,11 +212,12 @@ def state_7_valid_responses(a):
 
 def create_report():
     global DONORS
+    ord_donors = OrderedDict(sorted(DONORS.items(), key=lambda t: t[1]['total_donation']))
     os.system('clear')
     print('{:<20}  {:<20}  {:<20}  {:<20}  {:<20}\n'
           .format('Name', 'Total Donation', '# of Donations',
                   'Average Donation', 'Last Donation'))
-    for donor in DONORS.values():
+    for donor in ord_donors.values():
         # print(donor)
         print('{:<20}  ${:<20,.2f}  {:<20}  ${:<20,.2f}  ${:<20,.2f}'
               .format(donor['name'], donor['total_donation'],
