@@ -273,6 +273,7 @@ def update_donor(amount):
     CURRENT_DONOR['num_donations'] += 1
     CURRENT_DONOR['avg_donation'] = CURRENT_DONOR['total_donation']\
         / CURRENT_DONOR['num_donations']
+    return CURRENT_DONOR['last_donation']
 
 
 def print_letter():

@@ -32,7 +32,8 @@ def test_state4_1():
 def test_update_donor():
     from mailroom import update_donor
     from mailroom import DONORS
-    assert update_donor('John Doe') == DONORS['John Doe']
+    from mailroom import CURRENT_DONOR
+    assert update_donor(100) == 100
 
 
 @pytest.mark.parametrize('a, result', STATE4_TABLE)
