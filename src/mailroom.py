@@ -17,7 +17,7 @@ def initialize_state_dict():
     state_1 = {'state': 1,
                'comment': 'This is the initial entry state.',
                'prompt_message':
-               'Welcome the the Donor Message Creation Center\n\n' +
+               # 'Welcome the the Donor Message Creation Center\n\n' +
                'Options:' +
                '\t[1] Create Report\n' +
                '\t\t[2] Send a Thank\n' +
@@ -90,7 +90,7 @@ def state_1_valid_responses(a):
         sys.exit()
     elif a == '1':
         create_report()
-        CURRENT_STATE = STATE_DICT['state_3']
+        CURRENT_STATE = STATE_DICT['state_1']
         return True
     elif a == '2':
         CURRENT_STATE = STATE_DICT['state_2']
@@ -223,9 +223,9 @@ def create_report():
               .format(donor['name'], donor['total_donation'],
                       donor['num_donations'], donor['avg_donation'],
                       donor['last_donation']))
-
-    print('\nOptions: \n\t\t[1] Return to main menu\n' +
-          '\t\t[0] Quit the Program\n\n')
+    print()
+    # print('\nOptions: \n\t\t[1] Return to main menu\n' +
+    #       '\t\t[0] Quit the Program\n\n')
 
 
 def user_report():
@@ -301,6 +301,8 @@ CURRENT_STATE = STATE_DICT['state_1']
 
 if __name__ == '__main__':
     os.system('clear')
+
+    print('Welcome the the Donor Message Creation Center\n\n')
 
     while True:
         # os.system('clear')
