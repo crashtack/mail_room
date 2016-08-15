@@ -29,11 +29,11 @@ def test_state4_1():
     assert state_4_valid_responses('10') == 10
 
 
-def test_update_donor():
-    from mailroom import update_donor
-    from mailroom import DONORS
-    from mailroom import CURRENT_DONOR
-    assert update_donor(100) == 100
+# def test_update_donor():
+#     from mailroom import update_donor
+#     from mailroom import DONORS
+#     from mailroom import CURRENT_DONOR
+#     assert update_donor(100) == 100
 
 
 @pytest.mark.parametrize('a, result', STATE4_TABLE)
